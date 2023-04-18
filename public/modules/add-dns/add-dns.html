@@ -1,0 +1,129 @@
+
+<div layout="row" layout-align="center start">
+    <div layout="column" md-whiteframe="1" flex="40" class="container" layout-padding layout-wrap layout-margin ng-cloak>
+        <md-content>
+            <md-tabs md-selected="vm.currentTab" md-dynamic-height md-border-bottom>
+                <md-tab label="single">
+                    <div layout="row" flex layout-padding layout-align="center start">    
+                        <div layout="column" flex layout-padding layout-wrap layout-margin ng-cloak>                        
+                            <md-autocomplete
+                                    ng-disabled="vm.disabled"
+                                    md-no-cache="true"
+                                    md-selected-item="vm.selectedItem"
+                                    md-search-text-change="vm.searchTextChange(vm.searchText)"
+                                    md-search-text="vm.searchText"
+                                    md-selected-item-change="vm.selectedItemChange(item)"
+                                    md-items="item in vm.querySearch(vm.searchText)"
+                                    md-item-text="item.display"
+                                    md-min-length="0"
+                                    placeholder="Search Domain">
+                                <md-item-template>
+                                    <span md-highlight-text="vm.searchText" md-highlight-flags="^i">{{item.display}}</span>
+                                </md-item-template>
+                                <md-not-found>
+                                    No domain matching "{{vm.searchText}}" were found.
+                                </md-not-found>
+                            </md-autocomplete>   
+                        </div>                         
+                    </div>
+                    <div layout="row" layout-align="center start" >
+                            <div layout="column" flex layout-padding layout-wrap layout-margin ng-cloak>  
+                            <form name="subdomainsSingle" ng-submit="subdomainsSingle.$valid && vm.showConfirmation()">
+                                <div layout="column">
+                                    <md-input-container >
+                                        <label>Sub names for {{(!vm.domain.value.length)?'unknown':vm.domain.value}}</label>
+                                        <textarea ng-model="vm.form.s.subs" ng-disabled="!vm.domain.value.length" rows="4" required></textarea>                
+                                    </md-input-container>
+                                    <div layout="row">
+                                        <md-input-container class="md-block" flex>
+                                            <label>Type</label>
+                                            <md-select name="type"  ng-disabled="!vm.domain.value.length" ng-model="vm.form.s.type" required>
+                                                <md-option value="CNAME">CNAME</md-option>
+                                                <md-option value="A">A</md-option>
+                                            </md-select>
+                                        </md-input-container>
+                                        <div flex="5" hide-xs hide-sm>
+                                        <!-- Spacer //-->
+                                        </div>
+                                        <md-input-container class="md-block" flex>
+                                            <label>Proxy</label>
+                                            <md-select name="proxy"  ng-disabled="!vm.domain.value.length" ng-model="vm.form.s.proxy" required>
+                                                <md-option value="false">No</md-option>
+                                                <md-option value="true">Yes</md-option>
+                                            </md-select>
+                                        </md-input-container>
+                                    </div>
+                                    
+                                    <md-input-container ng-if="vm.form.s.type==='CNAME' || vm.form.s.type==='' || !vm.form.s.type">
+                                        <label>Content</label>
+                                        <input name="content"  ng-disabled="!vm.domain.value.length" ng-model="vm.form.s.content" required>
+                                    </md-input-container>   
+                                    <md-input-container ng-if="vm.form.s.type==='A'">
+                                        <label>IPv4 address</label>
+                                        <input name="ip"  ng-disabled="!vm.domain.value.length" ng-pattern="/^(?!0.0.0.0|255.255.255.255)(((1?[1-9]?|10|2[0-4])\d|25[0-5])($|\.(?!$))){4}$/" ng-model="vm.form.s.content" required>
+                                    </md-input-container>               
+                                </div>
+                                
+                                <md-button ng-click="vm.clearInputSingle()" ng-disabled="!vm.domain.value.length" style="float:left;" class="md-raised">Clear</md-button>
+                                <md-button type="submit"  ng-disabled="!vm.domain.value.length" style="float:right;width: 150px;" class="md-raised md-primary">Submit</md-button>
+                            </form>
+                        </div>
+                        
+                    </div>
+                </md-tab>
+                <md-tab label="multiple">
+                    <div layout="row" layout-align="center start" >
+                        <div layout="column" flex layout-padding layout-wrap layout-margin ng-cloak>  
+                        <form name="subdomainsMultiple" ng-submit="subdomainsMultiple.$valid && vm.showConfirmation()">
+                            <div layout="column">
+                                <md-input-container >
+                                    <label>DNS</label>
+                                    <textarea ng-model="vm.form.m.subs" rows="4" required></textarea>                
+                                </md-input-container>
+                                <div layout="row">
+                                    <md-input-container class="md-block" flex>
+                                        <label>Type</label>
+                                        <md-select name="type"  ng-model="vm.form.m.type" required>
+                                            <md-option value="CNAME">CNAME</md-option>
+                                            <md-option value="A">A</md-option>
+                                        </md-select>
+                                    </md-input-container>
+                                    <div flex="5" hide-xs hide-sm>
+                                    <!-- Spacer //-->
+                                    </div>
+                                    <md-input-container class="md-block" flex>
+                                        <label>Proxy</label>
+                                        <md-select name="proxy" ng-model="vm.form.m.proxy" required>
+                                            <md-option value="false">No</md-option>
+                                            <md-option value="true">Yes</md-option>
+                                        </md-select>
+                                    </md-input-container>
+                                </div>
+                                
+                                <md-input-container ng-if="vm.form.m.type==='CNAME' || vm.form.m.type==='' || !vm.form.m.type">
+                                    <label>Content</label>
+                                    <input name="content" ng-model="vm.form.m.content" required>
+                                </md-input-container>   
+                                <md-input-container ng-if="vm.form.m.type==='A'">
+                                    <label>IPv4 address</label>
+                                    <input name="ip" ng-pattern="/^(?!0.0.0.0|255.255.255.255)(((1?[1-9]?|10|2[0-4])\d|25[0-5])($|\.(?!$))){4}$/" ng-model="vm.form.m.content" required>
+                                </md-input-container>               
+                            </div>
+                            
+                            <md-button ng-click="vm.clearInputMultiple()" style="float:left;" class="md-raised">Clear</md-button>
+                            <md-button type="submit" style="float:right;width: 150px;" class="md-raised md-primary">Submit</md-button>
+                        </form>
+                    </div>
+                </md-tab>
+            </md-tabs>
+        </md-content>
+    </div>
+</div>
+
+<md-toast md-theme="default" ng-repeat="toast in vm.stackToasts" class="custom-toast" ng-class="{'md-toast-error':!toast.success, 'md-toast-success':toast.success}" ng-style="toast.style">
+    <div class="md-toast-content">
+        <span class="md-toast-text" role="alert" aria-relevant="all" aria-atomic="true">
+            {{toast.msg}}
+        </span>
+    </div>
+</md-toast>

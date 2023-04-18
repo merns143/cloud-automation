@@ -1,0 +1,37 @@
+
+<div layout="row" class="layout-margin" layout-align="center start" >
+    <md-button ng-click="vm.updateBalances()" class="md-raised md-primary">Update Balances</md-button>
+</div>
+<div layout="row" class="layout-margin" layout-align="center start" >
+    <h3>Last Updated: {{(vm.list.length > 0) ? vm.list[0].last_updated : '...'}}</h3>
+</div>
+<div layout="row" layout-align="center start" layout-margin >
+    <div layout="column" md-whiteframe="1" flex="60" class="container" layout-padding layout-wrap  ng-cloak>  
+        <table class="custom-table">
+            <thead>
+                <tr>
+                    <th>Source</th>
+                    <th>Current</th>
+                    <th>Previous</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="no-hover" ng-repeat="x in vm.list">
+                    <td>{{x.source}}</td>
+                    <td>{{x.current | currency:"$"}}</td>
+                    <td>{{x.previous | currency:"$"}}</td>
+                </tr>
+                <tr class="no-hover" ng-if="!vm.list.length">
+                    <td colspan="3" align=center>No data</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<md-toast md-theme="default" ng-repeat="toast in vm.stackToasts" class="custom-toast" ng-class="{'md-toast-error':!toast.success, 'md-toast-success':toast.success}" ng-style="toast.style">
+    <div class="md-toast-content">
+        <span class="md-toast-text" role="alert" aria-relevant="all" aria-atomic="true">
+            {{toast.msg}}
+        </span>
+    </div>
+</md-toast>

@@ -1,0 +1,184 @@
+<div layout="row" layout-align="center start">
+        <div ng-controller="AppSearchController" layout="column" md-whiteframe="1" flex="65" class="container" layout-padding layout-wrap layout-margin ng-cloak>
+            <md-content>
+                <md-tabs md-selected="vm.currentTab" md-dynamic-height md-border-bottom>
+                    <md-tab label="Search" md-on-select="vm.onTabSelected(1)">
+                        <form name="appSearch" ng-submit="vm.search()" flex>        
+                            <div layout="row" layout-align="center start">        
+                                    <div class="md-padding" flex layout="column" >
+                                        <md-input-container flex>
+                                            <label>App Names</label>
+                                            <textarea id="textarea" name="apps" ng-model="vm.apps" rows="4" required></textarea>
+                                            <br>
+                                            <md-checkbox type="checkbox" ng-model="vm.searchBox" ng-true-value="'android'">Android</md-checkbox>
+                                            <md-checkbox type="checkbox" ng-model="vm.searchBox" ng-true-value="'ios'">IOS</md-checkbox>
+                                        </md-input-container>
+                                        <md-button type="submit" class="md-raised md-primary">Search</md-button>
+                                    </div>        
+                            </div>
+                        </form> 
+                    </md-tab>
+                    <md-tab label="Queue" md-on-select="vm.onTabSelected(2)">
+                        <div layout="column" flex layout-padding layout-wrap layout-margin ng-cloak>
+                            <table class="custom-table">
+                                <thead>
+                                    <tr>
+                                        <th style="text-align:center">Keyword</th>
+                                        <th style="text-align:center">Search Type</th>
+                                        <th style="text-align:center">Progress</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="no-hover" ng-repeat="appSearchQueue in vm.appSearchQueues">
+                                        <td style="text-align:center">{{appSearchQueue.appQueue}}</td>
+                                        <td style="text-align:center">{{appSearchQueue.search_typeQueue}}</td>
+                                        <td style="text-align:center" ng-if="appSearchQueue.progress == 0">queue</td>
+                                        <td style="text-align:center" ng-if="appSearchQueue.progress > 0">scraping</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <md-button ng-click="vm.getAppSearchQueue()" class="md-raised md-primary">Refresh</md-button>
+                        </div>
+                    </md-tab>
+                    <md-tab label="Advance Search" md-on-select="vm.onTabSelected(3)">
+                        <form name="advanceAppSearch" ng-submit="vm.advanceSearch()" flex>    
+                            <div layout="row" layout-align="center start"> 
+                                <div class="md-padding" flex layout="column" >
+                                    <ul>
+                                        <li>For Android use appId or app url. Example "com.dailyyoga.inc"</li>
+                                        <li>For IOS use id or app url. Example "545849922"</li>
+                                        <li>Can search up to 8 apps at a time. Separated by new line.</li>
+                                    </ul>
+                                    <md-input-container flex>
+                                        <label>Enter app/s</label>
+                                        <textarea id="appIdTextarea" name="appID" ng-model="vm.appIds" rows="4" required></textarea>
+                                        <br>
+                                        <md-checkbox type="checkbox" ng-model="vm.checkboxModel" ng-true-value="'android'">Android</md-checkbox>
+                                        <md-checkbox type="checkbox" ng-model="vm.checkboxModel" ng-true-value="'ios'">IOS</md-checkbox>
+                                    </md-input-container>
+                                    <md-button type="submit" class="md-raised md-primary">Search</md-button>
+                                    </div>
+                            </div>
+                        </form> 
+                        <md-card id="searchResult" style="display: none;">
+                            <md-card-content>
+                                <div layout="row" layout-align="center center">
+                                    <table class="custom-table" flex>
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th style="text-align:center" colspan="2">Application Details</th>
+                                                <th style="text-align:center">Developer</th>
+                                                <th style="text-align:center">Dev Url</th>
+                                                <th style="text-align:center"><md-icon md-font-icon="fa-file-excel-o" ng-click="vm.advanceCsvDownload(vm.resultAppIds)" class="md-menu-text-color green fa s10 clickable">Export</md-icon></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="no-hover" ng-repeat="resultAppId in vm.resultAppIds">
+                                                <td style="text-align:center"><img ng-src="{{resultAppId.icon}}" onerror="this.onerror=null;this.src='/noimage.svg';" width="25" height="25"></img></td>                                                    
+                                                <td>{{resultAppId.title}}</td>
+                                                <td>
+                                                    Downloaded
+                                                    <li>{{resultAppId.downloaded}}</li>
+                                                    Revenue
+                                                    <li>{{resultAppId.monthly_revenue}}</li>
+                                                </td>
+                                                <td style="text-align:center; width:150px">{{resultAppId.developer}}</td>
+                                                <td style="text-align:center">
+                                                    <input style="opacity:0; width:1px" type="text" value="{{resultAppId.urlPublisher}}" id="myInput-{{$index}}" />
+                                                    <md-icon ng-click="vm.copyLink($index)" md-font-icon="fa-clipboard" class="md-menu-text-color fa s10 clickable">Copy</md-icon>
+                                                </td>
+                                                <td style="text-align:center" ng-if="resultAppId.search_type == 'android'"><a ng-href="{{resultAppId.url}}" target="_blank"><md-icon md-font-icon="fa-android" class="md-menu-text-color fa s10 clickable">PlayStore</md-icon></a></td>
+                                                <td style="text-align:center" ng-if="resultAppId.search_type == 'ios'"><a ng-href="{{resultAppId.url}}" target="_blank"><md-icon md-font-icon="fa-apple" class="md-menu-text-color fa s10 clickable">iTunes</md-icon></a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </md-card-content>
+                        </md-card>
+                    </md-tab>
+                    <md-tab label="Dev Search" md-on-select="vm.onTabSelected(4)">
+                        <form name="devSearch" ng-submit="vm.devSearch()" flex>    
+                            <div layout="row" layout-align="center start"> 
+                                <div class="md-padding" flex layout="column" >
+                                    <ul>
+                                        <li>Can search up to 5 dev url at a time. Separated by new line.</li>
+                                    </ul>
+                                    <md-input-container flex>
+                                        <label>Enter dev url/s</label>
+                                        <textarea id="devUrlTextarea" name="devUrls" ng-model="vm.searchDevUrls" rows="4" required></textarea>
+                                    </md-input-container>
+                                    <md-button type="submit" class="md-raised md-primary">Search</md-button>
+                                    </div>
+                            </div>
+                        </form> 
+                        <md-card id="devUrlsResults" style="display: none;">
+                            <md-card-content>
+                                <div layout="row" layout-align="center center">
+                                    <table class="custom-table" flex>
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>Developer Name</th>
+                                                <th style="text-align:center">Total Apps</th>
+                                                <th style="text-align:center">Downloaded</th>
+                                                <th style="text-align:center">Revenue</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="no-hover" ng-repeat="devSearchResult in vm.devSearchResults">
+                                                <td style="text-align:center" ng-if="devSearchResult.searchType == 'android'"><md-icon md-font-icon="fa-android" class="md-menu-text-color fa s10 clickable"></md-icon></td>
+                                                <td style="text-align:center" ng-if="devSearchResult.searchType == 'ios'"><md-icon md-font-icon="fa-apple" class="md-menu-text-color fa s10 clickable"></md-icon></td>
+                                                <td style="width:150px">{{devSearchResult.devName}}</td>
+                                                <td style="text-align:center">{{devSearchResult.devDetails[0]}}</td>
+                                                <td style="text-align:center">{{devSearchResult.devDetails[1]}}</td>
+                                                <td style="text-align:center">{{devSearchResult.devDetails[2]}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </md-card-content>
+                        </md-card>
+                    </md-tab>
+                    <md-tab label="CSV Files" md-on-select="vm.onTabSelected(5)">
+                            <div layout="column" flex layout-padding layout-wrap layout-margin ng-cloak>
+                                <table class="custom-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th style="text-align:center">Created At</th>
+                                            <th style="text-align:center">Download</th>
+                                            <!-- <md-icon md-font-icon="fa-refresh" ng-click="vm.getCsvFiles()" class="md-menu-text-color green fa s10 clickable"></md-icon>     -->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="no-hover" ng-repeat="csvFile in vm.csvFiles | orderBy:'-date' | startFrom:vm.currentPage*vm.pageSize | limitTo:vm.pageSize" ng-if="csvFile.type!='d'">
+                                            <td>{{csvFile.name}}</td>
+                                            <td style="text-align:center"><small>{{csvFile.date | date:'short' }}</small></td>
+                                            <td style="text-align:center"><md-icon md-font-icon="fa-download" ng-click="vm.download(csvFile.name)" class="md-menu-text-color fa s10 clickable"></md-icon></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div layout="row" layout-align="center">
+                                    <md-button type="button" ng-disabled="vm.currentPage == 0" ng-click="vm.currentPage=vm.currentPage-1" class="md-raised md-primary">
+                                        Previous
+                                    </md-button>
+                                    <!-- {{vm.currentPage+1}}/{{vm.numberOfPages()}} -->
+                                    <md-button type="button" ng-disabled="vm.currentPage >= vm.csvFiles.length/vm.pageSize - 1" ng-click="vm.currentPage=vm.currentPage+1" class="md-raised md-primary">
+                                        Next
+                                    </md-button>
+                                </div>
+                            </div>
+                    </md-tab>  
+            </md-tabs>
+        </md-content> 
+    </div>
+</div>
+    
+<md-toast md-theme="default" ng-repeat="toast in vm.stackToasts" class="custom-toast" ng-class="{'md-toast-error':!toast.success, 'md-toast-success':toast.success}" ng-style="toast.style">
+    <div class="md-toast-content">
+        <span class="md-toast-text" role="alert" aria-relevant="all" aria-atomic="true">
+            {{toast.msg}}
+        </span>
+    </div>
+</md-toast>

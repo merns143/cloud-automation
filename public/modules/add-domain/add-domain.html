@@ -1,0 +1,39 @@
+<div layout="row" layout-align="center start">
+    <!-- <h5>Please make sure that the domains you will be adding doesn't exist to avoid backend issues</h5> -->
+    <h5>The Cloudflare API sets a maximum of 1,200 requests in a five minute period.</h5>
+</div>
+<form name="addDomain" ng-submit="vm.create()" flex>        
+    <div layout="row" layout-align="center start">        
+        <div layout="row" md-whiteframe="1" flex="30" class="container" layout-padding layout-wrap layout-margin ng-cloak>          
+            <div class="md-padding" flex layout="column" >
+                <md-input-container>
+                    <label>Domain Names</label>
+                    <textarea name="domains" ng-model="vm.domains" rows="4" required></textarea>
+                </md-input-container>
+                <md-button type="submit" class="md-raised md-primary">Add Domains</md-button>
+            </div>        
+        </div>
+        <div layout="column" md-whiteframe="1" class="container" layout-padding layout-wrap layout-margin ng-cloak ng-if="vm.added.length > 0 || vm.notAdded.length > 0 ">   
+            <div ng-if="vm.added.length > 0">
+                <h4>Added</h4>
+                <ul style="list-style-type:none;">
+                    <li ng-repeat="domain in vm.added"><i>{{domain}}</i></li>
+                </ul>
+            </div>
+            <div ng-if="vm.notAdded.length > 0">
+                <h4>Not Added</h4>
+                <ul style="list-style-type:none;">
+                    <li ng-repeat="domain in vm.notAdded"><i>{{domain}}</i></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</form> 
+
+<md-toast md-theme="default" ng-repeat="toast in vm.stackToasts" class="custom-toast" ng-class="{'md-toast-error':!toast.success, 'md-toast-success':toast.success}" ng-style="toast.style">
+    <div class="md-toast-content">
+        <span class="md-toast-text" role="alert" aria-relevant="all" aria-atomic="true">
+            {{toast.msg}}
+        </span>
+    </div>
+</md-toast>

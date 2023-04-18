@@ -1,0 +1,54 @@
+<div layout="row" layout-align="center start">
+        <div ng-controller="SpeechToTextController" ng-app="materialApp" layout="column" md-whiteframe="1" flex="40" class="container" layout-padding layout-wrap layout-margin ng-cloak>
+            <md-content>
+                    <md-tabs md-selected="vm.currentTab" md-dynamic-height md-border-bottom>
+                        <md-tab label="Transcribe" md-on-select="vm.onTabSelected(1)">
+                            <div flex layout="column" >
+                                <h4>FLAC file only</h4>
+                                <input id="file" type="file" accept=".flac" file-model="vm.myFile"/>
+                                <br/>
+                                <button id="Button" ng-click="vm.uploadFile()" class="md-button md-raised md-primary" disabled="true">Upload File</button>
+                            </div>
+                        </md-tab>
+                        <md-tab label="Transcribed Files" md-on-select="vm.onTabSelected(2)">
+                            <div layout="row" layout-align="start start" >
+                                <div layout="column" flex layout-padding layout-wrap layout-margin ng-cloak>
+                                    <!-- <h3>Transcribed Text Files</h3> -->
+                                    <table class="custom-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th style="text-align:center">Created At</th>
+                                                <th style="text-align:center">
+                                                    <md-icon md-font-icon="fa-refresh" ng-click="vm.getTranscribeList()" class="md-menu-text-color green fa s10 clickable"></md-icon>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="no-hover" ng-repeat="textFile in vm.textFiles | orderBy:'-date' | startFrom:vm.currentPage*vm.pageSize | limitTo:vm.pageSize" ng-if="textFile.type!='d'">
+                                                <td>{{textFile.name}}</td>
+                                                <td style="text-align:center">{{textFile.date | date:'short' }}</td>
+                                                <td style="text-align:center"><md-icon md-font-icon="fa-download" ng-click="vm.download(textFile.name)" class="md-menu-text-color fa s10 clickable"></md-icon></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div layout="row" layout-align="center">
+                                        <md-button type="button" ng-disabled="vm.currentPage == 0" ng-click="vm.currentPage=vm.currentPage-1" class="md-raised md-primary">Previous</md-button>
+                                        <!-- {{vm.currentPage+1}}/{{vm.numberOfPages()}} -->
+                                        <md-button type="button" ng-disabled="vm.currentPage >= vm.textFiles.length/vm.pageSize - 1" ng-click="vm.currentPage=vm.currentPage+1" class="md-raised md-primary">Next</md-button>
+                                    </div>
+                                </div>
+                            </div>
+                        </md-tab>    
+                    </md-tabs>
+            </md-content>
+        </div>
+</div>
+<md-toast md-theme="default" ng-repeat="toast in vm.stackToasts" class="custom-toast" ng-class="{'md-toast-error':!toast.success, 'md-toast-success':toast.success}" ng-style="toast.style">
+    <div class="md-toast-content">
+        <span class="md-toast-text" role="alert" aria-relevant="all" aria-atomic="true">
+            {{toast.msg}}
+        </span>
+    </div>
+</md-toast>
+

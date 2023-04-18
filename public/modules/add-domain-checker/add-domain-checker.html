@@ -1,0 +1,56 @@
+<form name="addDomainchecker" ng-submit="vm.addDomainCheck()" flex>        
+        <div layout="row" layout-align="center start">        
+            <div layout="row" md-whiteframe="1" flex="30" class="container" layout-padding layout-wrap layout-margin ng-cloak>          
+                <div class="md-padding" flex layout="column" >
+                    <md-input-container>
+                        <label>Domain Names</label>
+                        <textarea name="domains" ng-model="vm.domains" rows="4" required></textarea>
+                    </md-input-container>
+    
+                    <md-button type="submit" class="md-raised md-primary">Check Added Domains</md-button>
+                </div>
+            </div>
+            <div layout="row" ng-if="vm.list.length" md-whiteframe="1" flex="40" class="container" layout-margin layout-padding ng-cloak>  
+                <div flex layout="column" >
+                    <div flex layout="row" layout-align="center center">
+                        <p flex layout="row" layout-align="center center" class="copy-clipboard">-- ADDED DOMAINS --</p>
+                        <a clipboard href="javascript:void(0)" supported="vm.supported" text="vm.copy.added" on-copied="vm.copySuccess()" on-error="vm.copyFail(err)">
+                            <md-icon class="fa fa-copy"></md-icon>
+                        </a>
+                    </div>
+                    <table class="custom-table">
+                        <tbody>
+                            <tr class="no-hover" ng-repeat="domain in vm.list.added">
+                                <td align=center>
+                                    <md-icon class="fa fa-check green"></md-icon>
+                                </td>
+                                <td>{{domain.name}}</td>
+                            </tr>
+                            <tr ng-if="!vm.list.added.length">
+                                <td colspan=2 align=center>No result</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div flex layout="row" layout-align="center center">
+                        <p flex layout="row" layout-align="center center" class="copy-clipboard">-- NOT ADDED DOMAINS --</p>
+                        <a clipboard href="javascript:void(0)" supported="vm.supported" text="vm.copy.notadded" on-copied="vm.copySuccess()" on-error="vm.copyFail(err)">
+                            <md-icon class="fa fa-copy"></md-icon>
+                        </a>
+                    </div>
+                    <table class="custom-table">
+                        <tbody>
+                            <tr class="no-hover" ng-repeat="domain in vm.list.notadded">
+                                <td align=center>
+                                    <md-icon class="fa fa-times red"></md-icon>
+                                </td>
+                                <td>{{domain.name}}</td>
+                            </tr>
+                            <tr ng-if="!vm.list.notadded.length">
+                                    <td colspan=3 align=center>No result</td>
+                                </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </form>

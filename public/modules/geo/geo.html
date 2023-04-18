@@ -1,0 +1,77 @@
+<div layout="row" layout-align="center start">
+    <div layout="column" md-whiteframe="1" flex="40" class="container" layout-padding layout-wrap layout-margin ng-cloak>
+        <md-content>
+            <form name="addDomain" flex>        
+                <div layout="row" layout-align="center start">        
+                    <div class="md-padding" flex layout="column" >
+                        <md-input-container>
+                            <label>Add country names or country codes</label>
+                            <textarea name="countries" ng-model="vm.countries" rows="4" required></textarea>
+                        </md-input-container>
+                    </div>        
+                </div>
+                <div layout="row" layout-align="end center">
+                    <md-button type="button" ng-click="vm.languageCodeSubmit(2)" class="md-raised md-primary">Get Language List</md-button>
+                    <md-button type="button" ng-click="vm.languageCodeSubmit(1)" class="md-raised md-primary">Get All Details</md-button>
+                </div>
+            </form>
+        </md-content>
+    </div>
+
+    <div ng-if="vm.results && vm.display === 1" layout="column" md-whiteframe="1" flex="40" class="container" layout-padding layout-wrap layout-margin ng-cloak>
+        <a class="text-right" ng-if="vm.results.length > 0" title="Export" ng-click='csv.generate()' ng-href="{{ csv.link() }}" download="details.csv">
+            Export
+        </a>
+        <table ng-if="vm.results.length > 0" class="custom-table highlight-last" export-csv="csv">
+            <thead>
+                <tr>
+                    <th>Country</th>
+                    <th>Code</th>
+                    <th>Language Codes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="no-hover" ng-repeat="country in vm.results">
+                    <td>{{country.country}}</td>
+                    <td>{{country.country_code}}</td>
+                    <td>
+                        {{country.language_codes.join(', ')}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div ng-if="vm.results.length <= 0" style="text-align: center;">No countries retrieved.</div>
+    </div>
+
+    <div ng-if="vm.languages  && vm.display === 2" layout="column" md-whiteframe="1" flex="40" class="container" layout-padding layout-wrap layout-margin ng-cloak>
+        <a class="text-right" ng-if="vm.languages.length > 0" title="Export" ng-click='csv.generate()' ng-href="{{ csv.link() }}" download="languages.csv">
+            Export
+        </a>
+        <table ng-if="vm.languages.length > 0" class="custom-table" export-csv="csv">
+            <thead>
+                <tr>
+                    <th>Detailed Language Codes</th>
+                    <th>Plain Language Codes</th>
+                    <th>Language Names</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="no-hover" ng-repeat="language in vm.languages">
+                    <td>{{language.dlc}}</td>
+                    <td>{{language.plc}}</td>
+                    <td>{{language.ln}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div ng-if="vm.languages.length <= 0" style="text-align: center;">No countries retrieved.</div>
+    </div>
+</div>
+<md-toast md-theme="default" ng-repeat="toast in vm.stackToasts" class="custom-toast" ng-class="{'md-toast-error':!toast.success, 'md-toast-success':toast.success}" ng-style="toast.style">
+    <div class="md-toast-content">
+        <span class="md-toast-text" role="alert" aria-relevant="all" aria-atomic="true">
+            {{toast.msg}}
+        </span>
+    </div>
+</md-toast>

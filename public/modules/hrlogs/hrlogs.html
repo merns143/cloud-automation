@@ -1,0 +1,88 @@
+<div layout="row" layout-align="center start" layout-margin >
+    
+    <div layout="column" md-whiteframe="1" flex="60" flex.xs="100" class="container" layout-padding layout-wrap  ng-cloak>  
+            
+        <div layout="row" layout-align="center center" flex="100">
+            <md-input-container class="md-block" flex="20">
+                <label>Proxy</label>
+                <md-select name="proxy" ng-model="vm.downloadRange" required>
+                    <md-option value="LAST_7_DAYS">LAST_7_DAYS</md-option>
+                    <md-option value="ALL">ALL</md-option>
+                </md-select>
+            </md-input-container>
+            <md-button class="md-icon-button">
+                <md-icon md-font-icon="fa-download" ng-click="vm.download()" class="md-menu-text-color fa s10 clickable"></md-icon>
+            </md-button>
+            <span flex></span>
+            <md-button class="md-icon-button">
+                <md-icon md-font-icon="fa-plus" ng-click="vm.addUserDialog($event)" class="md-menu-text-color fa s10 green clickable"></md-icon>
+            </md-button>
+            <md-button class="md-icon-button">
+                <md-icon md-font-icon="fa-refresh" ng-click="vm.refreshList()" class="md-menu-text-color fa s10 clickable"></md-icon>
+            </md-button>
+        </div>
+        <table class="custom-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Last login</th>
+                    <th>Attempts<br/><small style="color:#bbb9b9de;">Last 7 days</small></th>
+                    <th>Last update</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="no-hover" ng-repeat="user in vm.users | orderBy:attempts:reverse">
+                    <td>{{user.name}}</td>
+                    <td>{{vm.formatDate(user.last_login)}}</td>
+                    <td>{{user.attempts}}</td>
+                    <td>{{vm.formatDate(user.updated_date)}}</td>
+                    <td>
+                        <md-button class="md-icon-button" ng-click="vm.deleteUser(user)" >
+                            <md-icon md-font-icon="fa-times" class="md-menu-text-color fa s10 red clickable"></md-icon>
+                        </md-button>
+                    </td>
+                </tr>
+                <tr class="no-hover" ng-if="!vm.users.length">
+                    <td colspan="5" align=center>No data</td>
+                </tr>
+            </tbody>
+        </table>
+    </div> 
+</div>
+<div style="visibility: hidden">
+    <div class="md-dialog-container" id="addUserDialog">
+        <md-dialog style="width: 50%;" aria-label="Add user">
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <h2>Add User</h2>
+                    <span flex></span>
+                    <md-button class="md-icon-button" ng-click="vm.hideLoading()">
+                        <md-icon md-font-icon="fa-times" class="md-menu-text-color fa s10 clickable"></md-icon>
+                    </md-button>
+                </div>
+            </md-toolbar>
+            <md-dialog-content>
+                <div class="md-dialog-content">
+                    <form name="adduser" novalidate ng-submit="adduser.$valid && vm.submit(adduser)" flex>        
+                        <div layout="row" layout-align="center start">        
+                            <div class="md-padding" flex layout="column" >
+                                <md-input-container>
+                                    <label>User name</label>
+                                    <input required name="username" ng-model="vm.form.name">
+                                </md-input-container>
+                                <md-input-container>
+                                    <label>Online jobs link</label>
+                                    <input required name="userlink" ng-model="vm.form.link">
+                                </md-input-container>
+                            </div>
+                        </div>
+                        <div layout="row" layout-align="end center">
+                            <md-button type="submit" class="md-raised md-primary">Submit</md-button>
+                        </div>
+                    </form>
+                </div>
+            </md-dialog-content>
+        </md-dialog>
+    </div>
+</div>

@@ -1,0 +1,39 @@
+
+<div layout="row" layout-align="center start" layout-margin >
+    
+    <!-- <div layout="column" md-whiteframe="1" flex="40" class="container" layout-padding layout-wrap  ng-cloak>  
+
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th>Domain</th>
+                        <th>Plan</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="no-hover" ng-repeat="domain in vm.domains">
+                        <td>{{domain.name}}</td>
+                        <td>{{domain.plan.name}}</td>
+                        <td>{{domain.status}}</td>
+                    </tr>
+                    <tr class="no-hover" ng-if="!vm.domains.length">
+                        <td colspan="3" align=center>No data</td>
+                    </tr>
+                </tbody>
+            </table>
+            <ul uib-pagination total-items="vm.paginationOpts.totalItems" ng-model="vm.paginationOpts.currPage" max-size="5" boundary-link-numbers="true" force-ellipses="true" items-per-page="10" ng-model="vm.paginationOpts.currPage" rotate="false" ng-change="vm.paginationOpts.pageChange()" layout="row" layout-align="center center" flex></ul>            
+    </div> -->
+    <h1>NEXYSMEDIA CLOUD AUTOMATION &reg;</h1> 
+    
+</div>
+
+<div layout="row" layout-align="end end" layout-margin style="height: calc(100vh - 150px);">
+    <div>
+        <md-button class="md-raised md-primary" ng-click="vm.exportDomains()">
+            Export All Domains
+            <md-icon md-font-icon="fa-download" class="md-menu-text-color fa s24"></md-icon>
+        </md-button>
+
+    </div>
+</div>

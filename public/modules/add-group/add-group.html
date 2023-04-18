@@ -1,0 +1,66 @@
+<form name="addDomain" ng-submit="addDomain.$valid && vm.createDomain()" ng-if="vm.step === 1" flex>        
+    <div layout="row" layout-align="center start">        
+        <div layout="row" md-whiteframe="1" flex="30" class="container" layout-padding layout-wrap layout-margin ng-cloak>          
+            <div class="md-padding" flex layout="column" >
+                <md-input-container>
+                    <label>Domain Names</label>
+                    <textarea name="domains" ng-model="vm.domains" rows="4" required></textarea>
+                </md-input-container>
+
+                <md-button type="submit" class="md-raised md-primary">Add Domains</md-button>
+            </div>        
+        </div>
+    </div>
+</form>   
+<div layout="row" layout-align="center start" ng-if="vm.step === 2" ng-repeat="domain in vm.newDomains">        
+        <div layout="column" md-whiteframe="1" flex="40" class="container" layout-padding layout-wrap layout-margin ng-cloak>  
+        <form name="subdomains" ng-submit="subdomains.$valid && vm.addDns(domain, vm.form[domain.id])">
+            <div layout="column">
+                <p>{{domain.name}}</p>
+                <md-input-container >
+                    <label>Sub names for {{domain.name}}</label>
+                    <textarea ng-model="vm.form[domain.id].subs" rows="4" required></textarea>                
+                </md-input-container>
+                <div layout="row">
+                    <md-input-container class="md-block" flex>
+                        <label>Type</label>
+                        <md-select name="type" ng-model="vm.form[domain.id].type" ng-init="vm.form[domain.id].type='CNAME'" required>
+                            <md-option value="CNAME">CNAME</md-option>
+                            <md-option value="A">A</md-option>
+                        </md-select>
+                    </md-input-container>
+                    <div flex="5" hide-xs hide-sm>
+                    <!-- Spacer //-->
+                    </div>
+                    <md-input-container class="md-block" flex>
+                        <label>Proxy</label>
+                        <md-select name="proxy" ng-model="vm.form[domain.id].proxy" ng-init="vm.form[domain.id].proxy='false'" required>
+                            <md-option value="false">No</md-option>
+                            <md-option value="true">Yes</md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+                
+                <md-input-container ng-if="vm.form[domain.id].type==='CNAME' || vm.form[domain.id].type==='' || !vm.form[domain.id].type">
+                    <label>Content</label>
+                    <input name="content" ng-model="vm.form[domain.id].content" ng-init="vm.form[domain.id].content=domain.name" required>
+                </md-input-container>   
+                <md-input-container ng-if="vm.form[domain.id].type==='A'">
+                    <label>IPv4 address</label>
+                    <input name="ip"  ng-pattern="/^(?!0.0.0.0|255.255.255.255)(((1?[1-9]?|10|2[0-4])\d|25[0-5])($|\.(?!$))){4}$/" ng-init="vm.form[domain.id].content=domain.name" ng-model="vm.form[domain.id].content" required>
+                </md-input-container>               
+            </div>
+            
+            <md-button ng-click="vm.clearInput(domain.id)" style="float:left;" class="md-raised">Clear</md-button>
+            <md-button type="submit" style="float:right;width: 150px;" class="md-raised md-primary">Submit</md-button>
+        </form>
+    </div>
+    
+</div>
+<md-toast md-theme="default" ng-repeat="toast in vm.stackToasts" class="custom-toast" ng-class="{'md-toast-error':!toast.success, 'md-toast-success':toast.success}" ng-style="toast.style">
+    <div class="md-toast-content">
+        <span class="md-toast-text" role="alert" aria-relevant="all" aria-atomic="true">
+            {{toast.msg}}
+        </span>
+    </div>
+</md-toast>

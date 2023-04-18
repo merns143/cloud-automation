@@ -1,0 +1,68 @@
+<div layout="row" layout-align="center start">
+        <div layout="column" md-whiteframe="1" flex="40" class="container" layout-padding layout-wrap layout-margin ng-cloak>
+            <md-content>
+                <form name="addDomain" flex>        
+                    <div layout="row" layout-align="center start">        
+                        <div class="md-padding" flex layout="column" >
+                            <md-input-container>
+                                <label>Domain Names</label>
+                                <textarea name="domains" ng-model="vm.domains" rows="4" required></textarea>
+                            </md-input-container>
+                        </div>        
+                    </div>
+                    <div layout="row" layout-align="center start">        
+                            <div class="md-padding" flex layout="column" >
+                            <md-input-container class="md-block" flex>
+                                    <label>Interval</label>
+                                    <md-select name="type" ng-model="vm.interval" required>
+                                        <md-option value="1">Last 30 minutes</md-option>
+                                        <md-option value="2">Last 6 hours</md-option>
+                                        <md-option value="3">Last 24 hours</md-option>
+                                        <md-option value="4">Last 7 days</md-option>
+                                    </md-select>
+                                </md-input-container>                            </div>        
+                        </div>
+                    <div layout="row" layout-align="end center">
+                        <md-button type="button" ng-click="vm.checkDomains()" class="md-raised md-primary">Check Analytics</md-button>
+                    </div>
+                </form>
+            </md-content>
+        </div>
+    
+        <div ng-if="vm.results" layout="column" md-whiteframe="1" flex="40" class="container" layout-padding layout-wrap layout-margin ng-cloak>
+            <div flex layout="row" layout-align="center center">
+                <p flex layout="row" layout-align="center center" class="copy-clipboard">-- Results --</p>
+                <a clipboard href="javascript:void(0)" supported="vm.supported" text="vm.copy" on-copied="vm.copySuccess()" on-error="vm.copyFail(err)">
+                       <md-icon class="fa fa-copy"></md-icon>
+                </a>
+            </div>
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th>Domain</th>
+                        <th>Exist</th>
+                        <th>Requests</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="no-hover" ng-repeat="domain in vm.results">
+                        <td>{{domain.domain}}</td>
+                        <td>
+                            <md-icon class="fa fa-check green" ng-if="domain.exist"></md-icon>
+                            <md-icon class="fa fa-times red" ng-if="!domain.exist"></md-icon>
+                        </td>
+                        <td>{{domain.requests}}</td>
+                    </tr>
+                </tbody>
+            </table>
+    
+            <div ng-if="vm.results.length <= 0" style="text-align: center;">All domains not found in the database.</div>
+        </div>
+    </div>
+    <md-toast md-theme="default" ng-repeat="toast in vm.stackToasts" class="custom-toast" ng-class="{'md-toast-error':!toast.success, 'md-toast-success':toast.success}" ng-style="toast.style">
+        <div class="md-toast-content">
+            <span class="md-toast-text" role="alert" aria-relevant="all" aria-atomic="true">
+                {{toast.msg}}
+            </span>
+        </div>
+    </md-toast>

@@ -1,0 +1,60 @@
+<div layout="row" layout-align="center start">
+    <div ng-controller="BranchAnalyticsController" ng-app="materialApp" layout="column" md-whiteframe="1" flex="60" class="container" layout-padding layout-wrap layout-margin ng-cloak>
+        <md-content>
+                <md-tabs md-selected="vm.currentTab" md-dynamic-height md-border-bottom>
+                    <md-tab label="Branch Data" md-on-select="vm.onTabSelected(1)">
+                        <div flex layout="column" >
+                            <h4>CSV file only</h4>
+                            <input id="file" type="file" accept=".csv" file-model="vm.myFile"/>
+                            <br/>
+                            <button id="Button" ng-click="vm.uploadFile()" class="md-button md-raised md-primary" disabled="true">Upload File</button>
+                        </div>
+                    </md-tab>
+                    <md-tab label="Analytics" md-on-select="vm.onTabSelected(2)">
+                        <p><b>Date Range:</b> "{{vm.dateRange}}"</p>
+                        <b>Trial Rate: $</b>
+                        <input type="number" ng-model="vm.trialrate" style="width:100px" />
+                        <div layout="row" layout-align="start start" >
+                            <div layout="column" flex layout-padding layout-wrap layout-margin ng-cloak>
+                                <table class="custom-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Country</th>
+                                            <th style="text-align:center">Installs</th>
+                                            <th style="text-align:center">Start_Trial</th>
+                                            <th style="text-align:center">TCR</th>
+                                            <th style="text-align:center">EPI</th>
+                                            <th style="text-align:center">Estimated Revenue</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="no-hover" ng-repeat="data in vm.branchData | orderBy:'-date' | startFrom:vm.currentPage*vm.pageSize | limitTo:vm.pageSize">
+                                            <td>{{data.country}}</td>
+                                            <td style="text-align:center">{{data.installs}}</td>
+                                            <td style="text-align:center">{{data.start_trial}}</td>
+                                            <td style="text-align:center">{{data.start_trial/data.installs | number:3}}</td>
+                                            <td style="text-align:center">${{data.start_trial*vm.trialrate / data.installs | number:3}}</td>
+                                            <td style="text-align:center">${{data.start_trial*vm.trialrate | number:3}}</td>                                            
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div layout="row" layout-align="center">
+                                    <md-button type="button" ng-disabled="vm.currentPage == 0" ng-click="vm.currentPage=vm.currentPage-1" class="md-raised md-primary">Previous</md-button>
+                                    <!-- {{vm.currentPage+1}}/{{vm.numberOfPages()}} -->
+                                    <md-button type="button" ng-disabled="vm.currentPage >= vm.branchData.length/vm.pageSize - 1" ng-click="vm.currentPage=vm.currentPage+1" class="md-raised md-primary">Next</md-button>
+                                </div>
+                            </div>
+                        </div>
+                    </md-tab>    
+                </md-tabs>
+        </md-content>
+    </div>
+</div>
+<md-toast md-theme="default" ng-repeat="toast in vm.stackToasts" class="custom-toast" ng-class="{'md-toast-error':!toast.success, 'md-toast-success':toast.success}" ng-style="toast.style">
+<div class="md-toast-content">
+    <span class="md-toast-text" role="alert" aria-relevant="all" aria-atomic="true">
+        {{toast.msg}}
+    </span>
+</div>
+</md-toast>
+

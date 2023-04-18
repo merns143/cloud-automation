@@ -1,0 +1,50 @@
+<div layout="row" layout-align="center start">
+    <div layout="column" md-whiteframe="1" flex="40" class="container" layout-padding layout-wrap layout-margin ng-cloak>
+        <md-content>
+            <form name="addDomain" flex>        
+                <div layout="row" layout-align="center start">        
+                    <div class="md-padding" flex layout="column" >
+                        <md-input-container>
+                            <label>Domain Names</label>
+                            <textarea name="domains" ng-model="vm.domains" rows="4" required></textarea>
+                        </md-input-container>
+                    </div>        
+                </div>
+                <div layout="row" layout-align="end center">
+                    <md-button type="button" ng-click="vm.checkSsl()" class="md-raised md-primary">Check SSL</md-button>
+
+                    <md-button type="button" ng-click="vm.showDisableConfirmation()" class="md-raised md-primary">Disable SSL</md-button>
+                </div>
+            </form>
+        </md-content>
+    </div>
+
+    <div ng-if="vm.results" layout="column" md-whiteframe="1" flex="40" class="container" layout-padding layout-wrap layout-margin ng-cloak>
+        <table class="custom-table">
+            <thead>
+                <tr>
+                    <th>Domain</th>
+                    <th>Universal SSL</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="no-hover" ng-repeat="domain in vm.results">
+                    <td>{{domain.domain}}</td>
+                    <td>
+                        <md-icon class="fa fa-check green" ng-if="domain.ssl"></md-icon>
+                        <md-icon class="fa fa-times red" ng-if="!domain.ssl"></md-icon>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div ng-if="vm.results.length <= 0" style="text-align: center;">All domains not found in the database.</div>
+    </div>
+</div>
+<md-toast md-theme="default" ng-repeat="toast in vm.stackToasts" class="custom-toast" ng-class="{'md-toast-error':!toast.success, 'md-toast-success':toast.success}" ng-style="toast.style">
+    <div class="md-toast-content">
+        <span class="md-toast-text" role="alert" aria-relevant="all" aria-atomic="true">
+            {{toast.msg}}
+        </span>
+    </div>
+</md-toast>

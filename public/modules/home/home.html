@@ -1,0 +1,123 @@
+<div layout="row">
+    <md-sidenav class="md-sidenav-left md-whiteframe-4dp ng-cloak" md-component-id="left">
+
+        <md-toolbar class="md-toolbar-tools" layout="row" layout-align="center-center">
+
+            <md-button ng-click="vm.toggleLeft()" class="md-icon-button" aria-label="Close User Menu">
+              <md-icon md-font-icon="fa-bars" class="md-menu-text-color fa s24"></md-icon>
+            </md-button>
+
+            <h3 class="md-toolbar-tools">Menu</h3>
+        
+        </md-toolbar>
+
+        <md-list-item layout="row" ng-click="vm.toggleLeft(); vm.goTo('app.home')">
+            <span>Home</span>
+        </md-list-item>
+        <md-divider></md-divider>
+
+        <md-list-item layout="row" ng-if="vm.masterAdmin" ng-click="vm.toggleLeft(); vm.goTo('app.hrlogs')">
+            <span>HR logs</span>
+        </md-list-item>
+        <md-divider></md-divider>
+
+        <md-list-item layout="row" ng-click="vm.toggleLeft(); vm.goTo('app.addDomain')">
+            <span>Add Domain</span>
+        </md-list-item>
+        <md-divider></md-divider>
+
+        <md-list-item layout="row" ng-click="vm.toggleLeft(); vm.goTo('app.addDomainChecker')">
+            <span>Add Domain Checker</span>
+        </md-list-item>
+        <md-divider></md-divider>
+
+        <md-list-item layout="row" ng-click="vm.toggleLeft(); vm.goTo('app.addDns')">
+            <span>Add DNS</span>
+        </md-list-item>
+        <md-divider></md-divider>
+            
+        <md-list-item layout="row" ng-click="vm.toggleLeft(); vm.goTo('app.addGroup')">
+            <span>Add Group</span>
+        </md-list-item>
+        <md-divider></md-divider>
+
+        <md-list-item layout="row" ng-click="vm.toggleLeft(); vm.goTo('app.uptimeCheck')">
+            <span>Uptime Check</span>
+        </md-list-item>
+        <md-divider></md-divider>
+
+        <md-list-item layout="row" ng-click="vm.toggleLeft(); vm.goTo('app.safeBrowsing')">
+            <span>Safebowsing</span>
+        </md-list-item>
+        <md-divider></md-divider>
+
+        <md-list-item layout="row" ng-click="vm.toggleLeft(); vm.goTo('app.trackingDomains')">
+            <span>Tracking Domains</span>
+        </md-list-item>
+        <md-divider></md-divider>
+
+        <md-list-item layout="row" ng-click="vm.toggleLeft(); vm.goTo('app.domainCheck')">
+            <span>Domain Check</span>
+        </md-list-item>
+        <md-divider></md-divider>
+
+        <md-list-item layout="row" ng-click="vm.toggleLeft(); vm.goTo('app.domainAnalytics')">
+            <span>Domain Analytics</span>
+        </md-list-item>
+        <md-divider></md-divider>
+
+        <md-list-item layout="row" ng-click="vm.toggleLeft(); vm.goTo('app.geo')">
+            <span>Geo</span>
+        </md-list-item>
+        <md-divider></md-divider>
+
+        <md-list-item layout="row" ng-click="vm.toggleLeft(); vm.goTo('app.sslDisable')">
+            <span>Disable SSL</span>
+        </md-list-item>
+        <md-divider></md-divider>
+
+        <md-list-item layout="row" ng-click="vm.toggleLeft(); vm.goTo('app.trafficSource')">
+            <span>Traffic Source</span>
+        </md-list-item>
+
+        <md-list-item layout="row" ng-click="vm.toggleLeft(); vm.goTo('app.speechtotext')">
+            <span>Speech to Text</span>
+        </md-list-item>
+
+        <md-list-item layout="row" ng-click="vm.toggleLeft(); vm.goTo('app.appsearch')">
+            <span>Sensortower App Search</span>
+        </md-list-item>
+
+        <md-list-item layout="row" ng-click="vm.toggleLeft(); vm.goTo('app.keywordwatcher')">
+            <span>Flippa Keyword Watcher</span>
+        </md-list-item>
+
+        <md-list-item layout="row" ng-click="vm.toggleLeft(); vm.goTo('app.branchanalytics')">
+            <span>Branch Analytics</span>
+        </md-list-item>
+        <md-divider></md-divider>
+
+    </md-sidenav>
+
+    <div style="width:100%" class="ng-cloak">
+        <md-toolbar class="toolbar">
+            <div layout="row" layout-align="center center" layout-wrap class="md-toolbar-tools">
+
+                <md-button ng-click="vm.toggleLeft()" class="md-icon-button" aria-label="Main Menu">
+                <md-icon md-font-icon="fa-bars" class="md-menu-text-color fa s24"></md-icon>
+                </md-button>
+                <h1 flex="90" class="md-headline">{{ vm.title }}</h1>
+                <span flex></span>
+
+                <md-button ng-click="vm.showLogOut()" class="md-icon-button" aria-label="User Menu">
+                <md-icon md-font-icon="fa-sign-out" class="md-menu-text-color fa s24"></md-icon>
+                </md-button>
+
+            </div>
+        </md-toolbar>
+
+        <div ui-view="content"></div>
+
+    </div>
+
+</div>

@@ -1,0 +1,72 @@
+<form name="addDomain" ng-submit="vm.checkDomains()" flex>        
+    <div layout="row" layout-align="center start">        
+        <div layout="row" md-whiteframe="1" flex="30" class="container" layout-padding layout-wrap layout-margin ng-cloak>          
+            <div class="md-padding" flex layout="column" >
+                <md-input-container>
+                    <label>Domain Names</label>
+                    <textarea name="domains" ng-model="vm.domains" rows="4" required></textarea>
+                </md-input-container>
+
+                <md-button type="submit" class="md-raised md-primary">Check Domains</md-button>
+            </div>        
+        </div>
+        <div layout="row" md-whiteframe="1" ng-if="vm.list.length" flex="40" class="container" layout-margin layout-padding ng-cloak>  
+            <div flex layout="column" >
+                <div flex layout="row" layout-align="center center">
+                    <p flex layout="row" layout-align="center center" class="copy-clipboard">-- UP --</p>
+                    <a clipboard href="javascript:void(0)" supported="vm.supported" text="vm.copy.up" on-copied="vm.copySuccess()" on-error="vm.copyFail(err)">
+                           <md-icon class="fa fa-copy"></md-icon>
+                    </a>
+                </div>
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th>Domain</th>
+                            <th>Status</th>
+                            <th>Detail</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="no-hover" ng-repeat="domain in vm.list.up">
+                            <td>{{domain.name}}</td>
+                            <td>
+                                <md-icon class="fa fa-check green"></md-icon>
+                            </td>
+                            <td>{{domain.detail}}</td>
+                        </tr>
+                        <tr ng-if="!vm.list.up.length">
+                            <td colspan=3 align=center>No result</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div flex layout="row" layout-align="center center">
+                    <p flex layout="row" layout-align="center center" class="copy-clipboard">-- DOWN --</p>
+                    <a clipboard href="javascript:void(0)" supported="vm.supported" text="vm.copy.down" on-copied="vm.copySuccess()" on-error="vm.copyFail(err)">
+                           <md-icon class="fa fa-copy"></md-icon>
+                    </a>
+                </div>
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th>Domain</th>
+                            <th>Status</th>
+                            <th>Detail</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="no-hover" ng-repeat="domain in vm.list.down">
+                            <td>{{domain.name}}</td>
+                            <td>
+                                <md-icon class="fa fa-times red"></md-icon>
+                            </td>
+                            <td>{{domain.detail}}</td>
+                        </tr>
+                        <tr ng-if="!vm.list.down.length">
+                                <td colspan=3 align=center>No result</td>
+                            </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</form>

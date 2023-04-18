@@ -1,0 +1,248 @@
+h1,h2,h3,h4,h5,h6,p,span  {
+    font-family: "Open Sans", Helvetica;
+    /* color: rgb(90,90,90); */
+}
+h1,h2,h3,h4,h5,h6 {
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+}
+.padding-inner {
+    padding: 30px 5%;        
+}
+/* Overwrite Defaults */
+md-toolbar.toolbar h1, md-toolbar.md-toolbar-tools h3, md-tabs md-tabs-wrapper md-tab-item span, md-tabs md-tabs-wrapper md-icon, .md-primary span {
+    color: white;
+}
+.md-icon-button {
+    font-size: 20px;
+}
+md-tabs md-tabs-wrapper {
+    background: #2196F3;
+}
+.md-button {
+    padding: 0 12px;
+}
+
+.md-input-message-animation > span {
+    color: rgb(221,44,0);
+}
+
+#login-content{
+    padding-top: 7%;
+}
+
+md-toast.md-center {
+    
+    left: 50%;
+    transform: translate3d(-50%, 0, 0);
+    -webkit-transform: translate3d(-50%, 0, 0); /* Safari */
+    
+}
+
+md-toast.md-center > .md-toast-content {
+   
+   color: #FFFFFF !important;
+    text-align: center;
+}
+
+md-toast.md-center > .md-toast-content > span {
+    color: #FFFFFF !important;
+}
+
+table.custom-table {
+    margin-bottom: 1rem;
+    background-color: transparent;
+    border-collapse: collapse;
+}
+
+table.custom-table thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #dee2e6;
+    border-top: 0px !important; 
+    text-align: left;
+}
+
+table.custom-table td, table.custom-table th {
+    padding: .75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+}
+
+table.custom-table tbody tr:nth-of-type(odd) {
+    background-color: rgba(0,0,0,.05);
+}
+
+.remove-domain-link {
+    /* float: right; */
+    color: rgba(0,0,0,0.54);
+    /* text-decoration: none; */
+    margin-top: 2px;
+    font-size: 11px;
+}
+
+.sub-holder {
+    padding: 10px 5px;
+    margin-bottom: 5px;
+}
+.sub-holder:hover {
+    background-color: rgba(146, 146, 146, 0.05);   
+}
+
+.sub-holder > md-input-container {
+    margin: 8px 0 !important;
+}
+
+md-dialog[aria-label="progress-modal"] {
+    background: transparent;
+    overflow: visible;
+    box-shadow: none;
+}
+
+ul.pagination {
+    text-align: center;
+    width: 100%;
+    margin-top: 2rem;   
+}
+
+ul.pagination li {
+    display: inline-block;
+}
+ul.pagination li.disabled a {
+    pointer-events: none;
+}
+
+
+ul.pagination li.active a {
+    background-color: #A6B3F3;
+}
+ul.pagination li.active a:hover{
+    background-color: #A2B1F3;
+}
+
+ul.pagination li a {
+        position: relative;
+        display: block;
+        padding: 10px;
+        margin-left: -4px;
+        line-height: 1.25;
+        color: #007bff;
+        background-color: #fff;
+        border: 1px solid #dee2e6;
+        font-size: 14px;      
+        text-decoration: none; 
+}
+
+ul.pagination li a:hover {
+    text-decoration: none;
+    background-color: #eee;
+}
+
+ul.pagination li:first-child a{
+        margin-left: 0;
+        border-top-left-radius: .25rem;
+        border-bottom-left-radius: .25rem;
+}
+
+ul.pagination li:last-child a{
+    margin-right: 0;
+    border-top-right-radius: .25rem;
+    border-bottom-right-radius: .25rem;
+}
+
+.md-toast-error > .md-toast-content{
+    background-color: #FF3939 !important;
+}
+
+.md-toast-success > .md-toast-content{
+    background-color:#21A321 !important;
+}
+
+.custom-toast {
+    right: 0;
+    width: 350px;
+    text-align: center;
+}
+
+.tabsdemoDynamicHeight md-content {
+    background-color: transparent !important; 
+}
+
+.tabsdemoDynamicHeight md-content md-tabs {
+      background: #f6f6f6;
+      border: 1px solid #e1e1e1; }
+.tabsdemoDynamicHeight md-content md-tabs md-tabs-wrapper {
+        background: white; }
+.tabsdemoDynamicHeight md-content h1:first-child {
+      margin-top: 0; }
+
+md-tabs md-tabs-wrapper, md-autocomplete {
+   background-color:rgb(250, 250, 250) !important;
+}
+
+.green {
+    color: green !important;
+}
+
+.red {
+    color: red !important;
+}
+
+.orange {
+    color: orange !important;
+}
+
+p.copy-clipboard {
+    font-weight: bolder;
+    color: rgb(63,81,181);
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+.log-viewer {
+    width: 100%;
+    height: 800px;
+    border: 0 !important;
+}
+
+.domain-counter-holder {
+    width: 100%;
+    text-align: center;
+}
+
+.domain-counter-holder tr:first-child td {
+    font-weight: bold;
+    line-height: 27px;
+    letter-spacing: 1.5px;
+    color: #3f51b5;
+}
+
+.download-icon {
+    font-size: 40px;
+    width: 40px !important;
+    height: 40px !important;
+    padding: 5px;
+    color: rgba(0,0,0,0.54);
+}
+
+.download-icon {
+    font-size: 40px;
+    width: 40px !important;
+    height: 40px !important;
+    padding: 5px;
+    color: rgba(24, 24, 24, 0.54);
+}
+
+.download-icon:hover {
+    cursor: pointer;
+    color: rgba(0,0,0,0.54);
+}
+
+table.highlight-last tbody tr:last-child {
+    background-color: rgb(37, 255, 114);
+}
+
+.text-right {
+    text-align: right;
+}

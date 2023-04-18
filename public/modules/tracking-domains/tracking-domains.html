@@ -1,0 +1,71 @@
+<div layout="row" layout-align="center start">
+    <div layout="column" md-whiteframe="1" flex="40" class="container" layout-padding layout-wrap layout-margin ng-cloak>
+        <md-content>
+            <md-tabs md-selected="vm.currentTab" md-dynamic-height md-border-bottom>
+                <md-tab label="status">
+                    <div layout="row" class="layout-margin" layout-align="center start" >
+                        <div layout="column" flex layout-align="center center" >
+                            <h3>Tracking Domains</h3>
+                            {{vm.trackingDomainsList.available}}
+                        </div>
+                        <div layout="column" flex layout-align="center center" >
+                            <h3>Broken Domains</h3>
+                            {{vm.trackingDomainsList.broken}}
+                        </div>
+                    </div>
+
+                    <md-divider></md-divider>
+                
+                    <form name="addDomain" ng-submit="vm.create()" flex>        
+                        <div layout="row" layout-align="center start">        
+                            <div class="md-padding" flex layout="column" >
+                                <md-input-container>
+                                    <label>Add Tracking Domains</label>
+                                    <textarea name="domains" ng-model="vm.domains" rows="4" required></textarea>
+                                </md-input-container>
+                            </div>        
+                        </div>
+                        <div layout="row" layout-align="end center">
+                            <md-button type="submit" ng-click="" class="md-raised md-primary">Submit</md-button>
+                        </div>
+                    </form>     
+                    
+                    <md-divider></md-divider>
+
+                    <div layout="row" class="layout-margin" layout-align="center start" >
+                        <md-button type="submit" ng-click="vm.gotToLogs()" class="md-raised md-primary">View Logs</md-button>
+                        <md-button type="submit" ng-click="vm.downloadUrls()" class="md-raised md-primary">Domains List</md-button>
+                    </div>
+                </md-tab>
+                <md-tab label="credentials">
+                    <div layout="row" layout-align="start start" >
+                        <div layout="column" flex layout-padding layout-wrap layout-margin ng-cloak>  
+                            <h3>Safebowsing Token</h3>
+                            <table>
+                                <tr ng-repeat="credential in vm.credentials">
+                                    <td>{{credential.token}}</td>
+                                    <td><md-icon md-font-icon="fa-times" ng-click="vm.deleteCredential(credential.id)" class="md-menu-text-color fa s10 clickable"></md-icon></td>
+                                </tr>
+                            </table>
+                            <md-input-container>
+                                <label>Add token</label>
+                                <input ng-model="vm.newtoken">
+                            </md-input-container>
+                            
+                            <div layout="row" layout-align="end center">
+                                <md-button type="button" ng-click="vm.addCredential()" class="md-raised md-primary">Add Token</md-button>
+                            </div>
+                        </div>
+                    </div>
+                </md-tab>
+            </md-tabs>
+        </md-content>
+    </div>
+</div>
+<md-toast md-theme="default" ng-repeat="toast in vm.stackToasts" class="custom-toast" ng-class="{'md-toast-error':!toast.success, 'md-toast-success':toast.success}" ng-style="toast.style">
+    <div class="md-toast-content">
+        <span class="md-toast-text" role="alert" aria-relevant="all" aria-atomic="true">
+            {{toast.msg}}
+        </span>
+    </div>
+</md-toast>

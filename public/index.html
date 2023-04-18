@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Cloud Automation</title>
+
+  <base href="/" />
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+ 
+  
+  <!-- build:css styles/main.css -->
+  <link rel='stylesheet' href='//fonts.googleapis.com/css?family=Open+Sans:400,700'>  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">  
+  <link rel="stylesheet" href="scripts/angular-material/angular-material.min.css"/>
+  <link rel="stylesheet" href="custom.css"/>
+  <!-- endbuild -->
+
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+</head>
+
+<body ng-app="materialApp">
+
+
+<div ui-view="main" class="main"></div>
+
+</body>
+
+
+<!-- build:js scripts/vendor.js -->
+
+<script src="scripts/angular/angular.min.js"></script>
+<script src="scripts/angular-animate/angular-animate.min.js"></script>
+<script src="scripts/angular-aria/angular-aria.min.js"></script>
+<script src="scripts/angular-material/angular-material.min.js"></script>
+<script src="scripts/angular-resource/angular-resource.min.js"></script>
+<script src="scripts/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
+<script src="scripts/angular-ui-router/release/angular-ui-router.min.js"></script>
+<script src="scripts/angular-clipboard/angular-clipboard.js"></script>
+<script src="scripts/ng-table-to-csv/dist/ng-table-to-csv.min.js"></script>
+<script src="scripts/moment/moment.js"></script>
+<script src="scripts/angular-moment/angular-moment.min.js"></script>
+<script src="scripts/angular-jwt/dist/angular-jwt.min.js"></script>
+
+<script src="app.module.js"></script>
+<script src="app.config.js"></script>
+<script src="app.routes.js"></script>
+
+<script src="services/auth.service.js"></script>
+<script src="services/alert.service.js"></script>
+<script src="services/deffer.service.js"></script>
+<script src="services/api.service.js"></script>
+<script src="services/safebrowsing.service.js"></script>
+<script src="services/trackingDomains.service.js"></script>
+<script src="services/utility.service.js"></script>
+<script src="services/geo.service.js"></script>
+<script src="services/traffic-source.service.js"></script>
+<script src="services/hrlogs.service.js"></script>
+<script src="services/speechtotext.service.js"></script>
+<script src="services/appsearch.service.js"></script>
+<script src="services/keywordwatcher.service.js"></script>
+<script src="services/adddomainchecker.service.js"></script>
+<script src="services/branchanalytics.service.js"></script>
+
+<script src="modules/home/home.controller.js"></script>
+<script src="modules/list/list.controller.js"></script>
+<script src="modules/add-group/addGroup.controller.js"></script>
+<script src="modules/add-domain/addDomain.controller.js"></script>
+<script src="modules/add-dns/addDns.controller.js"></script>
+<script src="modules/login/login.controller.js"></script>
+<script src="modules/home/settingsDialog.controller.js"></script>
+<script src="modules/uptime-check/uptimeCheck.controller.js"></script>
+<script src="modules/safe-browsing/safeBrowsing.controller.js"></script>
+<script src="modules/tracking-domains/trackingDomains.controller.js"></script>
+<script src="modules/domain-check/domainCheck.controller.js"></script>
+<script src="modules/geo/geo.controller.js"></script>
+<script src="modules/ssl-disable/sslDisable.controller.js"></script>
+<script src="modules/domain-analytics/domainAnalytics.controller.js"></script>
+<script src="modules/traffic-source/trafficSource.controller.js"></script>
+<script src="modules/hrlogs/hrlogs.controller.js"></script>
+<script src="modules/speech-to-text/speechToText.controller.js"></script>
+<script src="modules/app-search/appSearch.controller.js"></script>
+<script src="modules/keyword-watcher/keywordWatcher.controller.js"></script>
+<script src="modules/add-domain-checker/addDomainChecker.controller.js"></script>
+<script src="modules/branch-analytics/branch-analytics.controller.js"></script>
+
+<!-- <script src="modules/add-group/progressDialog.controller.js"></script> -->
+
+<!-- endbuild -->
+
+
+</html>

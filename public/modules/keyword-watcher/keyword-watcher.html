@@ -1,0 +1,72 @@
+<div layout="row" layout-align="center start">
+        <div ng-controller="AppSearchController" layout="column" md-whiteframe="1" flex="50" class="container" layout-padding layout-wrap layout-margin ng-cloak>
+            <md-content>
+                <md-tabs md-selected="vm.currentTab" md-dynamic-height md-border-bottom>
+                    <md-tab label="Watcher" md-on-select="vm.onTabSelected(1)">
+                        <form name="addKeyword" ng-submit="vm.add()" flex>        
+                            <div layout="row" layout-align="center start">     
+                                <div class="md-padding" flex layout="column" >
+                                    <md-input-container>
+                                        <label>Keywords</label>
+                                        <textarea id="textarea" name="keywords" ng-model="vm.keywords" rows="4" required></textarea>
+                                    </md-input-container>
+                                    <md-button type="submit" class="md-raised md-primary">Add to Watch List</md-button>
+                                </div>
+                                <div class="md-padding" flex layout="column" >
+                                    <h3>Property Types</h3>
+                                    <md-checkbox type="checkbox" ng-model="vm.checkboxModel[0]" ng-true-value="'android_app'">Android App</md-checkbox>
+                                    <md-checkbox type="checkbox" ng-model="vm.checkboxModel[1]" ng-true-value="'domain'">Domain</md-checkbox>
+                                    <md-checkbox type="checkbox" ng-model="vm.checkboxModel[2]" ng-true-value="'established_website'">Established Website</md-checkbox>
+                                    <md-checkbox type="checkbox" ng-model="vm.checkboxModel[3]" ng-true-value="'ios_app'">iOS App</md-checkbox>
+                                    <md-checkbox type="checkbox" ng-model="vm.checkboxModel[4]" ng-true-value="'starter_site'">Starter Site</md-checkbox>
+                                </div>    
+                            </div>
+                        </form>
+                    </md-tab>
+                    <md-tab label="Keyword List" md-on-select="vm.onTabSelected(2)">
+                        <table class="custom-table" flex>
+                            <thead>
+                                <tr>
+                                    <th>Keyword</th>
+                                    <th style="text-align:center">Search Count</th>
+                                    <th style="text-align:center">Property Type</th>
+                                    <th style="text-align:center">Created</th>
+                                    <th style="text-align:center">Updated</th>
+                                    <th style="text-align:center">
+                                        <md-icon md-font-icon="fa-refresh" ng-click="vm.getKeywordList()" class="md-menu-text-color green fa s10 clickable"></md-icon>    
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="no-hover" ng-repeat="dbKeyword in vm.dbKeywords | orderBy:'-created_date' | startFrom:vm.currentPage*vm.pageSize | limitTo:vm.pageSize">
+                                    <td>{{dbKeyword.keyword}}</td>
+                                    <td style="text-align:center"><a href="https://www.flippa.com/search?query[keyword]={{dbKeyword.keyword}}&filter[property_type]={{dbKeyword.property_types}}" target="_blank" style="text-decoration: none">{{dbKeyword.search_count}}</a></td>
+                                    <td style="text-align:center">{{dbKeyword.property_types}}</td>
+                                    <td style="text-align:center">{{dbKeyword.created_date | date:'short' }}</td>
+                                    <td style="text-align:center">{{dbKeyword.updated_date | date:'short' }}</td>
+                                    <td style="text-align:center"><md-icon md-font-icon="fa-times" ng-click="vm.delKeyword(dbKeyword.keyword)" class="md-menu-text-color red fa s10 clickable"></md-icon></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div layout="row" layout-align="center">
+                            <md-button type="button" ng-disabled="vm.currentPage == 0" ng-click="vm.currentPage=vm.currentPage-1" class="md-raised md-primary">
+                                Previous
+                            </md-button>
+                            <!-- {{vm.currentPage+1}}/{{vm.numberOfPages()}} -->
+                            <md-button type="button" ng-disabled="vm.currentPage >= vm.dbKeywords.length/vm.pageSize - 1" ng-click="vm.currentPage=vm.currentPage+1" class="md-raised md-primary">
+                                Next
+                            </md-button>
+                        </div>
+                    </md-tab>  
+            </md-tabs>
+        </md-content> 
+    </div>
+</div>
+    
+<md-toast md-theme="default" ng-repeat="toast in vm.stackToasts" class="custom-toast" ng-class="{'md-toast-error':!toast.success, 'md-toast-success':toast.success}" ng-style="toast.style">
+    <div class="md-toast-content">
+        <span class="md-toast-text" role="alert" aria-relevant="all" aria-atomic="true">
+            {{toast.msg}}
+        </span>
+    </div>
+</md-toast>

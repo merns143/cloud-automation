@@ -1,0 +1,4 @@
+<md-dialog aria-label="progress-modal" layout="column" layout-align="center center">        
+    <md-progress-circular class="md-accent" md-diameter="50" md-mode="indeterminate"></md-progress-circular>
+    <span ng-repeat="log in vm.logs track by $index" ng-bind="log"></span>
+</md-dialog>

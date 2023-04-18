@@ -1,0 +1,25 @@
+<md-dialog layout-align="center center" layout="column" flex="35">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h4>Update Token</h4>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="vm.cancel()">
+                        <md-icon class="fa fa-close"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div layout="column" class="md-padding" flex>
+                <md-input-container layout="row" layout-align="center center" flex md-no-float>
+                        <md-icon class="fa fa-key"></md-icon>
+                        <input type="text" placeholder="Token">
+                </md-input-container>
+            </div>
+        </md-dialog-content>
+
+        <md-dialog-actions>
+            <div layout="row" layout-align="end center">
+                <md-button class="md-raised md-primary" ng-click="vm.hide()">Save</md-button>
+            </div>
+        </md-dialog-actions>
+</md-dialog>
