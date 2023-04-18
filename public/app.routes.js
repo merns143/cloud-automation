@@ -29,7 +29,7 @@
                 }
             },
             params: {
-                title: "Nexysmedia"
+                title: "Flutter+"
             }
         }) 
         .state('app.login', {
