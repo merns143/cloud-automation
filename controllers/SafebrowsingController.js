@@ -11,6 +11,7 @@ module.exports = {
 
     get_credentials:  function(req, res) {        
         var link = baseUrl +'/credentials';
+        console.log(link)
         axios.get(link).then(function(response) {
             res.status(200).json(response.data);
         }).catch(function(err){
