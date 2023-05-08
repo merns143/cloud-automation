@@ -67,6 +67,31 @@ app.all('/app/*', function (req, res, next) {
     res.sendFile('index.html', { root: path.join(__dirname, 'public') });
 });
 
+// From MS Teams Connectors URL
+let msTeamsHookURL = "https://snowballcompany.webhook.office.com/webhookb2/710b9309-8b4d-4ba8-9574-921f48cdfc44@caf560d4-f4f6-4071-8442-abab6b7b7122/IncomingWebhook/dc5953fc3bad4c9389836b8530335ef4/6d105f93-f0c4-4e82-adea-d784761d81bf";
+
+app.get('/ms-teams-hooks/:message', (req, res) => {
+
+    var msg = {
+        "@type": "MessageCard",
+        "@context": "http://schema.org/extensions",
+        "themeColor": "0076D7",
+        "summary": "Summary",
+        "sections": [{
+            "activityTitle": req.params.message,
+            "markdown": true
+        }]
+    }
+
+    axios.post(msTeamsHookURL, msg)
+    .then(() => {
+        res.send("Success.");
+    })
+    .catch(function(err){
+        res.send("Error: " + err);
+    });
+    
+})
 // auth router
 authRoutes(app);
 
