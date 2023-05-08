@@ -6,7 +6,7 @@ const message = 'Safebrowsing server is down. Server restarted.';
 const alertSlack = async (message) => {
 	try {
 		// await axios.get(`https://hooks.zapier.com/hooks/catch/2286988/acgq55/?message=${message}`);	
-		await axios.get(`/ms-teams-hooks/${message}`);	
+		await axios.get(`https://cloud-automation.herokuapp.com/ms-teams-hooks/${message}`);	
 		console.log('Alert sent:', message);
 	} catch (error) {
 		console.log('Failed to send alert to slack');
