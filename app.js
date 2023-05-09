@@ -31,7 +31,6 @@ var keywordwatcherRoutes = require('./routes/KeywordWatcherRoutes');
 var adddomaincheckerRoutes = require('./routes/AddDomainCheckerRoutes');
 var branchanalyticsRoutes = require('./routes/BranchAnalyticsRoutes');
 
-
 //-----------------------
 // Add scheduled jobs--
 //-----------------------
