@@ -25,7 +25,7 @@ module.exports = function(app){
                 throw new Error('Invalid username or password');
             }
 
-            await axios.get('https://sbrow.glowlytics.com/api/voluum-credentials').then(function(response) {
+            await axios.get('http://sbrow.glowlytics.com/api/voluum-credentials').then(function(response) {
                 console.log(response.data)
             }).catch(function(err){
                 console.log(err)
