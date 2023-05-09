@@ -40,8 +40,10 @@ require('./jobs');
 //-------------------------------
 // Connect To The Database ------
 //-------------------------------
+// mongodb+srv://heroku_c34cmh7n:prp8n47pm3b1t0b11t8cro9v6k@cluster-c34cmh7n.um1a5.mongodb.net/heroku_c34cmh7n?retryWrites=true&w=majority
 // let prod_db_url = "mongodb://admin:BJ3Z1CoXwISt@ds247410.mlab.com:47410/heroku_c34cmh7n";
-let prod_db_url = "mongodb://admin:BJ3Z1CoXwISt@cluster-c34cmh7n-shard-00-00.um1a5.mongodb.net:27017,cluster-c34cmh7n-shard-00-01.um1a5.mongodb.net:27017,cluster-c34cmh7n-shard-00-02.um1a5.mongodb.net:27017/heroku_c34cmh7n?ssl=true&replicaSet=atlas-wijj8l-shard-0&authSource=admin&retryWrites=true&w=majority";
+// let prod_db_url = "mongodb://admin:BJ3Z1CoXwISt@cluster-c34cmh7n-shard-00-00.um1a5.mongodb.net:27017,cluster-c34cmh7n-shard-00-01.um1a5.mongodb.net:27017,cluster-c34cmh7n-shard-00-02.um1a5.mongodb.net:27017/heroku_c34cmh7n?ssl=true&replicaSet=atlas-wijj8l-shard-0&authSource=admin&retryWrites=true&w=majority";
+let prod_db_url = process.env.DB_URI;
 mongoose.connect(prod_db_url, { useNewUrlParser: true }, function (err, res) {
     if (err) {
         console.log("ERROR IN CONNECTING TO DATABASE")
@@ -69,7 +71,7 @@ app.all('/app/*', function (req, res, next) {
 });
 
 // From MS Teams Connectors URL
-let msTeamsHookURL = "https://snowballcompany.webhook.office.com/webhookb2/710b9309-8b4d-4ba8-9574-921f48cdfc44@caf560d4-f4f6-4071-8442-abab6b7b7122/IncomingWebhook/dc5953fc3bad4c9389836b8530335ef4/6d105f93-f0c4-4e82-adea-d784761d81bf";
+let msTeamsHookURL = process.env.MS_TEAMS_WEBHOOK;
 
 app.get('/ms-teams-hooks/:message', (req, res) => {
 

@@ -1,7 +1,13 @@
 const axios = require("axios");
 const serverHelper = require('../helpers/serverHelper');
+const https = require('https');
 
 const message = 'Safebrowsing server is down. Server restarted.';
+
+// At request level
+const agent = new https.Agent({
+    rejectUnauthorized: false
+});
 
 const alertSlack = async (message) => {
 	try {
@@ -18,7 +24,7 @@ const notifyDowntime = async () => {
 		await serverHelper.restart_sbrow();
 		await alertSlack(message);		
 	} catch (error) {
-		// await alertSlack('@here Safebrowsing server is down. Unable to restart the server.');
+		await alertSlack('@here Safebrowsing server is down. Unable to restart the server.');
 		console.log('Error')
 	}
 };
@@ -28,7 +34,7 @@ const notifyDowntime = async () => {
 //-----------------------
 
 const sbrowHealthCheck = async () => {
-	await axios.get('https://sbrow.glowlytics.com/api/health-check')
+	await axios.get('https://sbrow.glowlytics.com/api/health-check', { httpsAgent: agent })
 		.then(async (res) => {
 
 			if (res && res.data && res.data.success) {
