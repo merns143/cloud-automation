@@ -5,14 +5,18 @@ var baseUrl = config.safebrowsingUrl;
 var GetFlaggedUrls = require('../safeBrowsing_api');
 const Json2csvParser = require('json2csv').Parser;
 const fields = ['url', 'flagged'];
+const https = require('https');
 
+// At request level
+const agent = new https.Agent({
+    rejectUnauthorized: false
+});
 
 module.exports = {
 
     get_credentials:  function(req, res) {        
         var link = baseUrl +'/credentials';
-        console.log(link)
-        axios.get(link).then(function(response) {
+        axios.get(link, { httpsAgent: agent }).then(function(response) {
             res.status(200).json(response.data);
         }).catch(function(err){
             var error = {
@@ -28,7 +32,7 @@ module.exports = {
         var body = {
             token: req.body.credential_token
         };
-        axios.post(link, body).then(function(response) {
+        axios.post(link, { httpsAgent: agent }, body).then(function(response) {
             res.status(200).json(response.data);
         }).catch(function(err){
             var error = {
@@ -41,7 +45,7 @@ module.exports = {
     delete_credential: function(req, res) {
         var link = baseUrl +'/credentials/'+ req.params.id;
 
-        axios.delete(link).then(function(response) {
+        axios.delete(link, { httpsAgent: agent }).then(function(response) {
             res.status(200).json(response.data);
         }).catch(function(err){
             var error = {
@@ -53,7 +57,7 @@ module.exports = {
 
     get_voluum_credentials: function(req, res) {
         var link = baseUrl +'/voluum-credentials';
-        axios.get(link).then(function(response) {
+        axios.get(link, { httpsAgent: agent }).then(function(response) {
             res.status(200).json(response.data);
         }).catch(function(err){
             var error = {
@@ -69,7 +73,7 @@ module.exports = {
             accessId: req.body.accessId,
             accessKey: req.body.accessKey
         };
-        axios.put(link, body).then(function(response) {
+        axios.put(link, { httpsAgent: agent }, body).then(function(response) {
             res.status(200).json(response.data);
         }).catch(function(err){
             var error = {
@@ -81,7 +85,7 @@ module.exports = {
 
     get_avaiable_urls: function(req, res) {
         var link = baseUrl +'/available-urls';
-        axios.get(link).then(function(response) {
+        axios.get(link, { httpsAgent: agent }).then(function(response) {
             res.status(200).json(response.data);
         }).catch(function(err){
             var error = {
@@ -96,7 +100,7 @@ module.exports = {
         var body = {
             domains: req.body.domains
         };
-        axios.post(link, body).then(function(response) {
+        axios.post(link, { httpsAgent: agent }, body).then(function(response) {
             res.status(200).json(response.data);
         }).catch(function(err){
             var error = {
@@ -108,7 +112,7 @@ module.exports = {
 
     get_domains: function(req, res) {
         var link = baseUrl +'/domains';
-        axios.get(link).then(function(response) {
+        axios.get(link, { httpsAgent: agent }).then(function(response) {
             res.status(200).json(response.data);
         }).catch(function(err){
             var error = {
@@ -123,7 +127,7 @@ module.exports = {
         var body = {
             domains: req.body.domains
         };
-        axios.post(link, body).then(function(response) {
+        axios.post(link, { httpsAgent: agent }, body).then(function(response) {
             res.status(200).json(response.data);
         }).catch(function(err){
             var error = {

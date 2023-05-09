@@ -2,8 +2,6 @@ var express = require('express');
 var router = express.Router();
 var jwt    = require('jsonwebtoken');
 var User = require("../models/User");
-var axios = require("axios").default;
-const https = require('https');
 
 const getUser = (user) => {
     return new Promise((resolve,reject)=>{
@@ -17,11 +15,6 @@ const getUser = (user) => {
     });
 };
 
-// At request level
-const agent = new https.Agent({
-    rejectUnauthorized: false
-});
-
 module.exports = function(app){
 
     router.post('/auth', async (req, res) => {       
@@ -30,12 +23,6 @@ module.exports = function(app){
             if (!req.body.username || !req.body.password) {
                 throw new Error('Invalid username or password');
             }
-
-            await axios.get('https://sbrow.glowlytics.com/api/voluum-credentials', { httpsAgent: agent }).then(function(response) {
-                console.log(response.data)
-            }).catch(function(err){
-                console.log(err)
-            });
 
             const user = await getUser(req.body);
 
