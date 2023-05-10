@@ -32,7 +32,7 @@ module.exports = {
         var body = {
             token: req.body.credential_token
         };
-        axios.post(link, { httpsAgent: agent }, body).then(function(response) {
+        axios.post(link, body, { httpsAgent: agent }).then(function(response) {
             res.status(200).json(response.data);
         }).catch(function(err){
             var error = {
@@ -73,7 +73,7 @@ module.exports = {
             accessId: req.body.accessId,
             accessKey: req.body.accessKey
         };
-        axios.put(link, { httpsAgent: agent }, body).then(function(response) {
+        axios.put(link, body, { httpsAgent: agent }).then(function(response) {
             res.status(200).json(response.data);
         }).catch(function(err){
             var error = {
@@ -100,7 +100,7 @@ module.exports = {
         var body = {
             domains: req.body.domains
         };
-        axios.post(link, { httpsAgent: agent }, body).then(function(response) {
+        axios.post(link, body, { httpsAgent: agent }).then(function(response) {
             res.status(200).json(response.data);
         }).catch(function(err){
             var error = {
@@ -127,12 +127,13 @@ module.exports = {
         var body = {
             domains: req.body.domains
         };
-        axios.post(link, body).then(function(response) {
+        axios.post(link, body, { httpsAgent: agent }).then(function(response) {
             res.status(200).json(response.data);
         }).catch(function(err){
             var error = {
                 "status":"ERROR"
             };
+            console.log(err)
             res.status(500).json(error);
         });   
     },
