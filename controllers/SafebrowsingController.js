@@ -127,7 +127,7 @@ module.exports = {
         var body = {
             domains: req.body.domains
         };
-        axios.post(link, { httpsAgent: agent }, body).then(function(response) {
+        axios.post(link, body).then(function(response) {
             res.status(200).json(response.data);
         }).catch(function(err){
             var error = {
