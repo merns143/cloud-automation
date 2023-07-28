@@ -92,8 +92,27 @@ app.get('/ms-teams-hooks/:message', (req, res) => {
     .catch(function(err){
         res.send("Error: " + err);
     });
-    
 })
+
+app.get('/restart-autorules', async(req, res) => {
+    try {
+        const link = `https://api.digitalocean.com/v2/droplets/339628324/actions`;
+        const body = {
+          "type": "reboot",
+        };
+        const headers = {
+          "Authorization": `Bearer ${process.env.DIGITAL_OCEAN_TOKEN}`,
+          "Content-Type": "application/json",
+        };
+    
+        await axios.post(link, body, { headers });
+    
+        return true;
+      } catch (error) {
+        throw new Error(error.message);
+      }
+})
+
 // auth router
 authRoutes(app);
 

@@ -13,7 +13,7 @@ module.exports = {
 
   digitalOceanApi: "https://api.digitalocean.com",
   digitalOceanToken:
-    "dop_v1_47295f872cd41ddf46a5ffbad986bb59c1ff3ab73511809e923c376bab93f556",
+    "",
   sbrowServerId: "91190709",
   //trackingDomainsUrl: 'http://tracking-domains.local/api',
 

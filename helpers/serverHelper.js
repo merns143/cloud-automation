@@ -1,5 +1,11 @@
 const config = require("../config");
 const axios = require("axios");
+const https = require('https');
+
+// At request level
+const agent = new https.Agent({
+  rejectUnauthorized: false
+});
 
 const restart_sbrow = async () => {
   try {
@@ -7,14 +13,13 @@ const restart_sbrow = async () => {
     const body = {
       "type": "reboot",
     };
-    console.log(link);
 
     const headers = {
-      "Authorization": `Bearer ${config.digitalOceanToken}`,
+      "Authorization": `Bearer ${process.env.DIGITAL_OCEAN_TOKEN}`,
       "Content-Type": "application/json",
     };
 
-    await axios.post(link, body, { headers });
+    await axios.post(link, body, { httpsAgent: agent, headers });
 
     return true;
   } catch (error) {
