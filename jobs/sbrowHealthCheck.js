@@ -24,7 +24,7 @@ const notifyDowntime = async () => {
 		await serverHelper.restart_sbrow();
 		await alertSlack(message);		
 	} catch (error) {
-		await alertSlack('@here Safebrowsing server is down. Unable to restart the server.');
+		// await alertSlack('@here Safebrowsing server is down. Unable to restart the server.');
 		console.log('Error')
 	}
 };
